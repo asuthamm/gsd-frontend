@@ -36,7 +36,7 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(newUserData => {
-      console.log(newUserData)
+      console.log(newUserData) 
     })
   }
 
