@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Profile from './components/Profile';
-import AllTodoContainer from './components/AllTodoContainer';
-import TodoForm from './components/TodoForm';
-import Logo from './components/Logo';
+import Profile from './Profile';
+import AllTodoContainer from './AllTodoContainer';
+import TodoForm from './TodoForm';
+import Logo from './Logo';
 
 class Home extends Component {
   render() {
