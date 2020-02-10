@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {withRouter, Link, NavLink} from 'react-router-dom'
+
 
 class LoginForm extends Component {
 
@@ -9,7 +11,22 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.handleSubmit(this.state)
+    // console.log("Login form has been submitted")
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(
+        // infoSentUp
+        this.state
+      )
+    })
+    .then(r => r.json())
+    .then(userData => {
+      this.props.handleSubmit(userData)
+    })
+    this.props.history.push("/home")
   }
 
   handleChange = (e) => {
@@ -22,7 +39,7 @@ class LoginForm extends Component {
   render() {
     let {formName} = this.props
     let {username, password} = this.state
-
+    // console.log(this.props)
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>{formName}</h1>
@@ -37,4 +54,4 @@ class LoginForm extends Component {
 
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
