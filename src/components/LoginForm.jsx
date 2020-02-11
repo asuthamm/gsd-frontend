@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {withRouter, Link, NavLink} from 'react-router-dom'
-
+import Logo from './Logo';
 
 class LoginForm extends Component {
 
@@ -18,7 +18,6 @@ class LoginForm extends Component {
         "content-type": "application/json"
       },
       body: JSON.stringify(
-        // infoSentUp
         this.state
       )
     })
@@ -26,7 +25,10 @@ class LoginForm extends Component {
     .then(userData => {
       this.props.handleSubmit(userData)
     })
-    this.props.history.push("/home")
+    this.setState({
+      username: "",
+      password: ""
+    })
   }
 
   handleChange = (e) => {
@@ -41,6 +43,7 @@ class LoginForm extends Component {
     let {username, password} = this.state
     // console.log(this.props)
     return (
+      // <Logo/>
       <form onSubmit={this.handleSubmit}>
         <h1>{formName}</h1>
         <label htmlFor="username">Username:</label>

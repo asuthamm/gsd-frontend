@@ -13,11 +13,20 @@ import Profile from './components/Profile';
 class App extends Component {
 
   state = {
-    users: [],
+    // users: [],
+    user: {
+      id: 0,
+      name: "",
+      username: "",
+      bio: "",
+      img_url: "",
+      todo_lists: []
+    },
     token: ""
   }
 
   componentDidMount() {
+    console.log('cdm...', this.state)
     if (localStorage.getItem("token")) {
       let token = localStorage.getItem("token")
 
@@ -34,10 +43,8 @@ class App extends Component {
             user: data.user,
             token: data.token
           }, () => {
-            console.log(this.props)
-            this.history.push("/home")
+            this.props.history.push("/login")
           })
-          
         }
       })
 
@@ -52,7 +59,7 @@ class App extends Component {
   }
 
   handleRegisterSubmit = (infoSentUp) => {
-    // console.log(infoSentUp)
+    console.log(infoSentUp)
     fetch('http://localhost:3000/users',{
       method: 'POST',
       headers: {
@@ -77,30 +84,36 @@ class App extends Component {
 
   handleLoginSubmit = (infoSentUp) => {
     console.log(infoSentUp)
+    if (!infoSentUp.error) {
+      console.log('no error...')
+      localStorage.setItem("token", infoSentUp.token)
         this.setState({
           user: infoSentUp.user,
           token: infoSentUp.token
         })  
+        this.props.history.push("/profile")
+    } 
   }
 
   renderForm = (routerProps) => {
     if(routerProps.location.pathname === "/login"){
       return <LoginForm formName="Login Form" routerProps={routerProps} handleSubmit={this.handleLoginSubmit}/>
+
     } else if (routerProps.location.pathname === "/register") {
       return <RegisterForm formName="Register Form" routerProps={routerProps} handleSubmit={this.handleRegisterSubmit}/>
     }
   }
-
 
   render() {
     // console.log(this.state)
     return (
       <div>
         <Switch>
+          <Route exact path="/" render={this.renderForm}/>
           <Route path="/login" render={this.renderForm}/>
           <Route path="/register" render={this.renderForm}/>
-          <Route path="/home" render={() => {
-            return <Profile />
+          <Route path="/profile" render={() => {
+            return <Profile user={this.state}/>
           }}/>
         </Switch>
       </div>
