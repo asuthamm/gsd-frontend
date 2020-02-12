@@ -43,7 +43,8 @@ class LoginForm extends Component {
     let {username, password} = this.state
     // console.log(this.props)
     return (
-      // <Logo/>
+      <div>
+      <Logo/>
       <form onSubmit={this.handleSubmit}>
         <h1>{formName}</h1>
         <label htmlFor="username">Username:</label>
@@ -52,6 +53,7 @@ class LoginForm extends Component {
         <input type="password" autoComplete="off" name="password" value={password} onChange={this.handleChange}/>
         <input type="submit" value="Submit"/>
       </form>
+      </div>
     );
   }
 
