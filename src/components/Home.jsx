@@ -6,23 +6,21 @@ import Logo from './Logo';
 
 class Home extends Component {
 
-  // renderTodoList = () => {
-  //   let {todo_lists} = this.props.userData.user
-  //   return todo_lists.map((todo) => <TodoList key={todo.id} todoData={todo}/>)
-  // }
+  renderTodoList = () => {
+    let {allTodo} = this.props
+    return allTodo.map((todo) => <TodoList key={todo.id} todoData={todo}/>)
+  }
   
   render() {
 
-      console.log(this.props.userData.user)
+      console.log(this.props)
 
     return (
       <div>
-        <h1></h1>
-        This is Home
-        <Logo/>
-        <Profile/>
-        {/* {this.renderTodoList()} */}
-        <TodoForm/>
+        {/* <Logo/> */}
+        {/* <Profile/> */}
+        {this.renderTodoList()}
+        {/* <TodoForm/> */}
       </div>
     );
   }
