@@ -44,7 +44,7 @@ class LoginForm extends Component {
     // console.log(this.props)
     return (
       <div>
-      <Logo/>
+      {/* <Logo/> */}
       <form onSubmit={this.handleSubmit}>
         <h1>{formName}</h1>
         <label htmlFor="username">Username:</label>
