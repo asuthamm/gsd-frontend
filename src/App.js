@@ -36,13 +36,15 @@ class App extends Component {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token)
-          // console.log(data)
+
+          console.log(data)
           this.setState({
             user: data.user,
             token: data.token
           }
           , () => {
-            this.props.history.push("/home")
+
+            this.props.history.push("/profile")
           }
           )
         }
