@@ -10,7 +10,6 @@ import Profile from './components/Profile';
 class App extends Component {
 
   state = {
-    // users: [],
     user: {
       id: 0,
       name: "",
@@ -19,7 +18,8 @@ class App extends Component {
       img_url: "",
       todo_lists: []
     },
-    token: ""
+    token: "",
+    allTasks: []
   }
 
   componentDidMount() {
@@ -36,36 +36,34 @@ class App extends Component {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token)
+
           console.log(data)
           this.setState({
             user: data.user,
             token: data.token
           }
           , () => {
+
             this.props.history.push("/profile")
           }
           )
         }
       })
 
-      fetch("http://localhost:3000/users", {
+      fetch("http://localhost:3000/todo_lists", {
         headers: {
           "Authorization": `bearer ${token}`
         }
       })
       .then(r => r.json())
       .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token)
+        // console.log(data)
+        // if (data.token) {
+        //   localStorage.setItem("token", data.token)
           this.setState({
-            // user: data.user,
-            // token: data.token
-          }
-          , () => {
-            this.props.history.push("/login")
-          }
-          )
-        }
+            allTasks: data
+          })
+        // }
       })
     
 
@@ -108,7 +106,7 @@ class App extends Component {
           user: infoSentUp.user,
           token: infoSentUp.token
         })  
-        this.props.history.push("/profile")
+        this.props.history.push("/home")
     } 
   }
 
@@ -126,11 +124,11 @@ class App extends Component {
   }
 
   renderHome = (routerProps) => {
-    return <Home userData={this.state}/>
+    return <Home allTodo={this.state.allTasks}/>
   }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     return (
       <div className="App">
         <Switch>
