@@ -108,7 +108,7 @@ class App extends Component {
   render() {
     // console.log(this.state)
     return (
-      <div>
+      <div className="App">
         <Switch>
           <Route path="/profile" render={this.renderProfile}/>
           <Route path="/home" render={this.renderHome}/>
