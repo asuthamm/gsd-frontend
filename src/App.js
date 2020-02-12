@@ -48,6 +48,26 @@ class App extends Component {
         }
       })
 
+      fetch("http://localhost:3000/users", {
+        headers: {
+          "Authorization": `bearer ${token}`
+        }
+      })
+      .then(r => r.json())
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token)
+          this.setState({
+            // user: data.user,
+            // token: data.token
+          }
+          , () => {
+            this.props.history.push("/login")
+          }
+          )
+        }
+      })
+    
 
     }
     else{
