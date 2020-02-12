@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from './components/Home';
 import {Route, Switch} from 'react-router';
-import {withRouter, Link, NavLink} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Profile from './components/Profile';
-
-
-
 
 class App extends Component {
 
@@ -26,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('cdm...', this.state)
+    // console.log('cdm...', this.state)
     if (localStorage.getItem("token")) {
       let token = localStorage.getItem("token")
 
@@ -42,24 +39,20 @@ class App extends Component {
           this.setState({
             user: data.user,
             token: data.token
-          }, () => {
+          }
+          , () => {
             this.props.history.push("/login")
-          })
+          }
+          )
         }
       })
 
 
     }
-    // fetch("http://localhost:3000/users")
-    //   .then(res => res.json())
-    //   .then(usersData => 
-    //     this.setState({
-    //       users: usersData
-    //   }))
   }
 
   handleRegisterSubmit = (infoSentUp) => {
-    console.log(infoSentUp)
+    // console.log(infoSentUp)
     fetch('http://localhost:3000/users',{
       method: 'POST',
       headers: {
@@ -83,9 +76,9 @@ class App extends Component {
   }
 
   handleLoginSubmit = (infoSentUp) => {
-    console.log(infoSentUp)
+    // console.log(infoSentUp)
     if (!infoSentUp.error) {
-      console.log('no error...')
+      // console.log('no error...')
       localStorage.setItem("token", infoSentUp.token)
         this.setState({
           user: infoSentUp.user,
@@ -104,17 +97,24 @@ class App extends Component {
     }
   }
 
+  renderProfile = (routerProps) => {
+    return <Profile userData={this.state}/>
+  }
+
+  renderHome = (routerProps) => {
+    return <Home userData={this.state}/>
+  }
+
   render() {
     // console.log(this.state)
     return (
       <div>
         <Switch>
-          <Route exact path="/" render={this.renderForm}/>
+          <Route path="/profile" render={this.renderProfile}/>
+          <Route path="/home" render={this.renderHome}/>
+          {/* <Route exact path="/" render={this.renderForm}/> */}
           <Route path="/login" render={this.renderForm}/>
           <Route path="/register" render={this.renderForm}/>
-          <Route path="/profile" render={() => {
-            return <Profile user={this.state}/>
-          }}/>
         </Switch>
       </div>
     );
