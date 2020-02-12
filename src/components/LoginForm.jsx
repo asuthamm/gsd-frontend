@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {withRouter, Link, NavLink} from 'react-router-dom'
-import Logo from './Logo';
+import {withRouter} from 'react-router-dom'
+// import Logo from './Logo';
 
 class LoginForm extends Component {
 
