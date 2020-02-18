@@ -3,7 +3,7 @@ import ItemCard from './ItemCard'
 
 class TodoList extends Component {
 render() {
-    console.log(this.props)
+    // console.log(this.props)
         let {user, todo_date, items} = this.props.todoData
         return (
             <div>

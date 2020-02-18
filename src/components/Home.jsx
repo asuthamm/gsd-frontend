@@ -4,6 +4,7 @@ import TodoForm from './TodoForm';
 import TodoList from './TodoList'
 import Logo from './Logo';
 
+
 class Home extends Component {
 
   renderTodoList = () => {
@@ -11,16 +12,24 @@ class Home extends Component {
     return allTodo.map((todo) => <TodoList key={todo.id} todoData={todo}/>)
   }
   
+
+  handleTodoSubmit = (newTodo) => {
+    console.log(newTodo)
+  }
   render() {
 
-      console.log(this.props)
+      // console.log(this.props)
 
     return (
       <div>
-        {/* <Logo/> */}
+        {/* <TodoForm handleTodoSubmit={this.handleTodoSubmit}/> */}
+        {/* <Search searchTerm={this.state.searchTerm} 
+                handleInput={this.handleInput} /> */}
+
+        <Logo/>
         {/* <Profile/> */}
-        {this.renderTodoList()}
-        {/* <TodoForm/> */}
+        {/* {this.renderTodoList()} */}
+
       </div>
     );
   }
